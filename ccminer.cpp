@@ -256,6 +256,7 @@ Options:\n\
 			hmq1725     Doubloons / Espers\n\
 			jha         JHA v8 (JackpotCoin)\n\
 			keccak      Keccak-256 (Maxcoin)\n\
+			keccakc     Keccak-256 + sha256d merkle root (Creativecoin)\n\
 			lbry        LBRY Credits (Sha/Ripemd)\n\
 			luffa       Joincoin\n\
 			lyra2       CryptoCoin\n\
@@ -1679,6 +1680,7 @@ static bool stratum_gen_work(struct stratum_ctx *sctx, struct work *work)
 		opt_difficulty = 1.;
 
 	switch (opt_algo) {
+		case ALGO_KECCAKC:
 		case ALGO_HMQ1725:
 		case ALGO_JACKPOT:
 		case ALGO_JHA:
@@ -2366,6 +2368,7 @@ static void *miner_thread(void *userdata)
 			break;
 
 		case ALGO_KECCAK:
+		case ALGO_KECCAKC:
 			rc = scanhash_keccak256(thr_id, &work, max_nonce, &hashes_done);
 			break;
 
