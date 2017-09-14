@@ -1680,7 +1680,6 @@ static bool stratum_gen_work(struct stratum_ctx *sctx, struct work *work)
 		opt_difficulty = 1.;
 
 	switch (opt_algo) {
-		case ALGO_KECCAKC:
 		case ALGO_HMQ1725:
 		case ALGO_JACKPOT:
 		case ALGO_JHA:
@@ -1698,6 +1697,7 @@ static bool stratum_gen_work(struct stratum_ctx *sctx, struct work *work)
 		case ALGO_LYRA2Z:
 		case ALGO_TIMETRAVEL:
 		case ALGO_BITCORE:
+		case ALGO_KECCAKC:
 			work_set_target(work, sctx->job.diff / (256.0 * opt_difficulty));
 			break;
 		case ALGO_KECCAK:
