@@ -171,6 +171,8 @@ static inline int algo_to_int(char* arg)
 			i = ALGO_LYRA2v2;
 		else if (!strcasecmp("bitcoin", arg))
 			i = ALGO_SHA256D;
+		else if (!strcasecmp("crea", arg))
+			i = ALGO_KECCAKC;
 		else if (!strcasecmp("sha256", arg))
 			i = ALGO_SHA256D;
 		else if (!strcasecmp("thorsriddle", arg))
