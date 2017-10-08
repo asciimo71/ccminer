@@ -23,6 +23,8 @@
 
 using namespace std;
 
+extern "C" void ossl1_BN_init(struct bignum_st *);
+
 /** Errors thrown by the bignum class */
 class bignum_error : public std::runtime_error
 {
@@ -65,12 +67,12 @@ class CBigNum : public BIGNUM
 public:
     CBigNum()
     {
-        BN_init(this);
+        ossl1_BN_init(this);
     }
 
     CBigNum(const CBigNum& b)
     {
-        BN_init(this);
+        ossl1_BN_init(this);
         if (!BN_copy(this, &b))
         {
             BN_clear_free(this);
@@ -91,21 +93,21 @@ public:
     }
 
     //CBigNum(char n) is not portable.  Use 'signed char' or 'unsigned char'.
-    CBigNum(signed char n)      { BN_init(this); if (n >= 0) setulong(n); else setint64(n); }
-    CBigNum(short n)            { BN_init(this); if (n >= 0) setulong(n); else setint64(n); }
-    CBigNum(int n)              { BN_init(this); if (n >= 0) setulong(n); else setint64(n); }
-    CBigNum(long n)             { BN_init(this); if (n >= 0) setulong(n); else setint64(n); }
-    CBigNum(int64 n)            { BN_init(this); setint64(n); }
-    CBigNum(unsigned char n)    { BN_init(this); setulong(n); }
-    CBigNum(unsigned short n)   { BN_init(this); setulong(n); }
-    CBigNum(unsigned int n)     { BN_init(this); setulong(n); }
-    CBigNum(unsigned long n)    { BN_init(this); setulong(n); }
-    CBigNum(uint64 n)           { BN_init(this); setuint64(n); }
-    explicit CBigNum(uint256 n) { BN_init(this); setuint256(n); }
+    CBigNum(signed char n)      { ossl1_BN_init(this); if (n >= 0) setulong(n); else setint64(n); }
+    CBigNum(short n)            { ossl1_BN_init(this); if (n >= 0) setulong(n); else setint64(n); }
+    CBigNum(int n)              { ossl1_BN_init(this); if (n >= 0) setulong(n); else setint64(n); }
+    CBigNum(long n)             { ossl1_BN_init(this); if (n >= 0) setulong(n); else setint64(n); }
+    CBigNum(int64 n)            { ossl1_BN_init(this); setint64(n); }
+    CBigNum(unsigned char n)    { ossl1_BN_init(this); setulong(n); }
+    CBigNum(unsigned short n)   { ossl1_BN_init(this); setulong(n); }
+    CBigNum(unsigned int n)     { ossl1_BN_init(this); setulong(n); }
+    CBigNum(unsigned long n)    { ossl1_BN_init(this); setulong(n); }
+    CBigNum(uint64 n)           { ossl1_BN_init(this); setuint64(n); }
+    explicit CBigNum(uint256 n) { ossl1_BN_init(this); setuint256(n); }
 
     explicit CBigNum(const std::vector<unsigned char>& vch)
     {
-        BN_init(this);
+        ossl1_BN_init(this);
         setvch(vch);
     }
 

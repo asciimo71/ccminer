@@ -9,6 +9,12 @@
 
 #include "miner.h" // hex2bin
 
+extern "C" void ossl1_BN_init(struct bignum_st *a)
+{
+    memset(a, 0, sizeof(BIGNUM));
+    bn_check_top(a);
+}
+
 extern "C" double bn_convert_nbits(const uint32_t nBits)
 {
 	uint256 bn = CBigNum().SetCompact(nBits).getuint256();
